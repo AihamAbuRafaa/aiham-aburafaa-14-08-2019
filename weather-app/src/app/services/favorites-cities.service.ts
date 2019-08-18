@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoritesCitiesService {
   favoritesCitiesKeys: string[] = [];
-  apiKey = "G8KQH0rdzGO80ahVARxzMRUBIWGpByaq";
+  BASE_URL = environment.baseUrl;
+  API_KEY = environment.apiKey;
 
-  constructor() {
+  constructor() {}
 
-  }
   getWeatherOfFav(){
     
   }
   
-
   addFavCity(key: string) {
     this.favoritesCitiesKeys.push(key)
   }
+
   removeFavCity(key: string) {
     this.favoritesCitiesKeys=this.favoritesCitiesKeys.filter(i => {
-      if(key==i)
-      {
-        return false;
-      }
-      return true;
+      return !(key == i);
     })
   }
 }

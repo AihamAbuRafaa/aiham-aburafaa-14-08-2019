@@ -1,0 +1,13 @@
+<header>
+    <div class="app-name">Herolo Weather Task</div>
+    <div class="nav-pages">
+        <a [routerLink]="['/']">Home</a>
+        <a [routerLink]="['/favorites']">Favorites</a>
+            <label>Unit:</label>
+            <select matNativeControl required>
+                <option value="F">F</option>
+                <option value="C">C</option>        
+            </select>
+    </div>
+</header>
+<router-outlet></router-outlet>

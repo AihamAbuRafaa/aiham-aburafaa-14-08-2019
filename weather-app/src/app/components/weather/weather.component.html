@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="search">
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <input type="text" matInput (input)="handleTerm($event.target.value)" [formControl]="myControl"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of searchCitiesOptions " [value]="option?.cityKey">
+                        {{option?.cityName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="daily-weather">
+        <div class="daily-weather-temp-container">
+            <div *ngIf="currentWeather" class="temprature">
+                {{currentWeather[0].Temperature?.Imperial?.Value}} {{currentWeather[0].Temperature?.Imperial?.Unit}}
+            </div>
+            <div *ngIf="currentWeather" class="status">
+                {{currentWeather[0].WeatherText}}
+            </div>
+        </div>
+        <div *ngIf="city" class="daily-weather-city">
+            {{city.LocalizedName}}
+            <hr>
+        </div>
+
+        <div class="favorite-city">
+            <span (click)="isiInFavorites==false&&addToFavorite()" *ngIf="isiInFavorites==false">Add To Favorites</span>
+            <span (click)="isiInFavorites==true&&removeFromFavorite()" *ngIf="isiInFavorites==true">Remove From
+                Favorites</span>
+        </div>
+
+    </div>
+    <div class="weekly-weather">
+        <div *ngFor="let day of comingDaysWeather" class="day-weather">
+            <app-day-weather [weatherCard]="day"></app-day-weather>
+        </div>
+    </div>
+</div>

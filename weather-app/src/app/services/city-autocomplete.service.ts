@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/internal/operators';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+export interface cityObj {
+  LocalizedName: string
+  Key: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityAutocompleteService {
-  apiKey = "G8KQH0rdzGO80ahVARxzMRUBIWGpByaq";
-  autoCompleteUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+  BASE_URL = environment.baseUrl;
+  API_KEY = environment.apiKey;
+
   city: cityObj;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  getCityName(cityName: string): Observable<any> {
+    return this.http.get(`${this.BASE_URL}locations/v1/cities/autocomplete?apikey=${this.API_KEY}&q=${cityName}`)
+      .pipe(map(data => data));
   }
-  async getCity(cityName: string) {
-    await this.http.get("http://dataservice.accuweather.com/locations/v1/cities/autocomplete" + "?" + "apikey=" + this.apiKey + "&q=" + cityName).subscribe((data) => {
-      this.city = <cityObj>data;
-    })
-  }
-}
-export interface cityObj {
-  LocalizedName: string
-  Key: string
 }
