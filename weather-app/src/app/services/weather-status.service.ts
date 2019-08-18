@@ -16,7 +16,6 @@ export class WeatherStatusService {
     return new Promise(function (resolve) {
       this.http.get("http://dataservice.accuweather.com/forecasts/v1/daily/5day/" + locationKey + "?apikey=" + this.apiKey).subscribe((data) => {
         this.fiveDaysForecast = <daysWeatherAlarms[]>data;
-        console.log(data)
         resolve(this.fiveDaysForecast.DailyForecasts)
       })
     }.bind(this))
