@@ -38,7 +38,6 @@ import { ToastrModule } from 'ngx-toastr';
     MatAutocompleteModule,
     MatIconModule,
     HttpClientModule,
-    BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [

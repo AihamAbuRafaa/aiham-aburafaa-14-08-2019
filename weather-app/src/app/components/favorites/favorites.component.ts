@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { weatheCard } from '../day-weather/day-weather.component';
+import { WeatheCard } from '../day-weather/day-weather.component';
 import { FavoritesCitiesService } from 'src/app/services/favorites-cities.service';
 import { GeopositionLocationService } from 'src/app/services/geoposition-location.service';
 import { cityObj } from 'src/app/services/weather-status.service';
@@ -10,30 +10,31 @@ import { cityObj } from 'src/app/services/weather-status.service';
   styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit {
-  weatherCard: weatheCard = {
+  weatherCard: WeatheCard = {
     bottom: "Sunny",
     center: '19 F',
     top: "Tel Aviv"
   }
-  favoritesCities: cityObj[] = [];
-  favoritesCitiesWeather: weatheCard[] = [];
+  favoritesCitiesWeather: WeatheCard[] = [];
   constructor(private favoritesSvc: FavoritesCitiesService,
     private geopositonSvc:GeopositionLocationService) {
 
   }
 
   async ngOnInit() {
-    this.favoritesCities = this.favoritesSvc.favoritesCities;
-    this.favoritesCitiesWeather=this.favoritesCities.map(i=>{
-      return{
-        center:i.temperature,
-        bottom:i.weatherText,
-        top:i.cityName
-      }
+    const favoritesCities = this.favoritesSvc.getFavoriteList();
+    favoritesCities.forEach( (value: cityObj, key: string) => {
+      this.favoritesCitiesWeather.push({
+        center: value.temperature,
+        bottom: value.weatherText,
+        top: value.cityName,
+        cityKey:value.Key
+      });
     })
   }
-  goToHomePage(index:number){
-    this.geopositonSvc.city=this.favoritesCities[index];
+
+  goToHomePage(city:WeatheCard){
+    this.geopositonSvc.city = this.favoritesSvc.getSpecificCity(city.cityKey);
   }
 
 }

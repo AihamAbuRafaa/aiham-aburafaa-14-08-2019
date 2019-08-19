@@ -27,8 +27,8 @@
         </div>
 
         <div class="favorite-city">
-            <span (click)="isiInFavorites==false&&addToFavorite()" *ngIf="isiInFavorites==false">Add To Favorites</span>
-            <span (click)="isiInFavorites==true&&removeFromFavorite()" *ngIf="isiInFavorites==true">Remove From
+            <span (click)="addToFavorite(city)" *ngIf="!isInFavorites(city.Key)">Add To Favorites</span>
+            <span (click)="removeFromFavorite(city.Key)" *ngIf="isInFavorites(city.Key)">Remove From
                 Favorites</span>
         </div>
 

@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./day-weather.component.scss']
 })
 export class DayWeatherComponent implements OnInit {
-  @Input() weatherCard: weatheCard;
+  @Input() weatherCard: WeatheCard;
   constructor() { }
 
   ngOnInit() {
@@ -15,8 +15,9 @@ export class DayWeatherComponent implements OnInit {
   }
 
 }
-export interface weatheCard {
+export interface WeatheCard {
   top: string;
   center: string;
   bottom?: string;
+  cityKey?:string;
 }
