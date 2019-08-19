@@ -14,7 +14,8 @@ import { DayWeatherComponent } from './components/day-weather/day-weather.compon
 import { CityAutocompleteService } from './services/city-autocomplete.service';
 import { FavoritesCitiesService } from './services/favorites-cities.service';
 import { WeatherStatusService } from './services/weather-status.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -36,7 +37,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     CityAutocompleteService,
