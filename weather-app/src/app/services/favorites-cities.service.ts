@@ -1,27 +1,28 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+  import { Injectable } from '@angular/core';
+  import { HttpClient } from '@angular/common/http';
+  import { environment } from 'src/environments/environment';
+  import { Observable } from 'rxjs';
+import { cityObj } from './weather-status.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class FavoritesCitiesService {
-  favoritesCitiesKeys: string[] = [];
-  BASE_URL = environment.baseUrl;
-  API_KEY = environment.apiKey;
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FavoritesCitiesService {
+    favoritesCities: cityObj[] = [];
 
-  constructor() {}
+    constructor(private http: HttpClient) { }
 
-  getWeatherOfFav(){
-    
+    getWeatherOfFav() {
+      return this.favoritesCities;
+    }
+
+    addFavCity(city: cityObj) {
+      this.favoritesCities.push(city)
+    }
+
+    removeFavCity(city: cityObj) {
+      this.favoritesCities = this.favoritesCities.filter(i => {
+        return !(city.Key == i.Key);
+      })
+    }
   }
-  
-  addFavCity(key: string) {
-    this.favoritesCitiesKeys.push(key)
-  }
-
-  removeFavCity(key: string) {
-    this.favoritesCitiesKeys=this.favoritesCitiesKeys.filter(i => {
-      return !(key == i);
-    })
-  }
-}

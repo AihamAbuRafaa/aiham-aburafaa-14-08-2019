@@ -1,9 +1,5 @@
-<div class="container">
-    <div class="day-weather">
-        <app-day-weather [weatherCard]="weatherCard"></app-day-weather>
-    </div>
-
-    <div class="day-weather">
-        <app-day-weather [weatherCard]="weatherCard"></app-day-weather>
-    </div>
+<div class="container">    
+        <div [routerLink]="['/']" (click)="goToHomePage(i)" *ngFor="let cityWeather of favoritesCitiesWeather ; let i=index" class="day-weather">
+            <app-day-weather [weatherCard]="cityWeather" ></app-day-weather>
+        </div>
 </div>

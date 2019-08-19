@@ -27,5 +27,11 @@ export class WeatherStatusService {
 
   }
 }
+export interface cityObj {
+  Key: string
+  cityName: string
+  temperature: string
+  weatherText: string
+}
 
 

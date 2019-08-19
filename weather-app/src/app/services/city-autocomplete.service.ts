@@ -4,10 +4,6 @@ import { map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-export interface cityObj {
-  LocalizedName: string
-  Key: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +12,6 @@ export class CityAutocompleteService {
   BASE_URL = environment.baseUrl;
   API_KEY = environment.apiKey;
 
-  city: cityObj;
   constructor(private http: HttpClient) {}
 
   getCityName(cityName: string): Observable<any> {

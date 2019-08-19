@@ -4,7 +4,7 @@
             <mat-form-field class="example-full-width">
                 <input type="text" matInput (input)="handleTerm($event.target.value)" [formControl]="myControl"
                     [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectCity($event.option.value,false)">
                     <mat-option *ngFor="let option of searchCitiesOptions " [value]="option?.cityKey">
                         {{option?.cityName}}
                     </mat-option>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div *ngIf="city" class="daily-weather-city">
-            {{city.LocalizedName}}
+            {{city.cityName}}
             <hr>
         </div>
 
@@ -33,7 +33,7 @@
         </div>
 
     </div>
-    <div class="weekly-weather">
+    <div class="weekly-weather" >
         <div *ngFor="let day of comingDaysWeather" class="day-weather">
             <app-day-weather [weatherCard]="day"></app-day-weather>
         </div>
