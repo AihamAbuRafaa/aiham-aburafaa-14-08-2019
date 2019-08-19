@@ -17,7 +17,7 @@ export class WeatherComponent implements OnInit {
   myControl = new FormControl();
   lat: number;
   lng: number;
-  isiInFavorites: boolean = false;
+  isiInFavorites: boolean = false; // if the city in my favorites
   locationWeather: any[];
   currentWeather: any;
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -41,7 +41,7 @@ export class WeatherComponent implements OnInit {
 
   async  ngOnInit() {
     try {
-      if (!this.geopositionSvc.city) {
+      if (!this.geopositionSvc.city) { //if this is my first view of home page
         let position = <Position>await this.getLocation();
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
@@ -62,7 +62,7 @@ export class WeatherComponent implements OnInit {
       }
       this.elementRef.nativeElement.ownerDocument.body.style.backgroundImage = "url(../../../assets/blue.png)"
 
-      this.seatchTerm$.pipe(
+      this.seatchTerm$.pipe( // autocomplete
         debounceTime(300),
         distinctUntilChanged(),
         switchMap(term => this.autoCompSvc.getCityName(term))).subscribe(data => {
@@ -120,13 +120,7 @@ export class WeatherComponent implements OnInit {
     this.isiInFavorites = true;
   }
   removeFromFavorite() {
-    let a = {
-      Key: this.city.Key,
-      cityName: this.city.cityName,
-      temperature: this.city.temperature,
-      weatherText: this.city.weatherText
-    }// i did this because i want to  pass the object byvalue
-    this.favoriteCitiesSvc.removeFavCity(a);
+    this.favoriteCitiesSvc.removeFavCity(this.city.Key);
     this.isiInFavorites = false;
   }
 
@@ -137,9 +131,9 @@ export class WeatherComponent implements OnInit {
           this.locationWeather = res[0].DailyForecasts;
           this.currentWeather = res[1];
           this.getDayFromDate();
-          if (flag == true)
+          if (flag == true) // if coming from favorites page
             this.city = this.geopositionSvc.city
-          else {
+          else { // if coming from home page
             this.city.Key = cityKey;
             this.city.cityName = this.searchCitiesOptions.find(i => i.cityKey == cityKey).cityName;
             this.city.temperature = this.currentWeather[0].Temperature.Imperial.Value + " " + this.currentWeather[0].Temperature.Imperial.Unit;
@@ -155,7 +149,7 @@ export class WeatherComponent implements OnInit {
 
   findinFavorites() {
     let ind = this.favoriteCitiesSvc.favoritesCities.findIndex(i => i.Key == this.city.Key)
-    if (ind == -1)
+    if (ind == -1) // if this city is in my favorites cities
       this.isiInFavorites = false;
     if (ind > -1)
       this.isiInFavorites = true;

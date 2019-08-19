@@ -23,7 +23,7 @@ export class FavoritesComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.favoritesCities = this.favoritesSvc.getWeatherOfFav();
+    this.favoritesCities = this.favoritesSvc.favoritesCities;
     this.favoritesCitiesWeather=this.favoritesCities.map(i=>{
       return{
         center:i.temperature,
